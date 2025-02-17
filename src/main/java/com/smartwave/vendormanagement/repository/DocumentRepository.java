@@ -1,9 +1,8 @@
 package com.smartwave.vendormanagement.repository;
 
-import com.smartwave.vendormanagement.entity.Vendor;
+import com.smartwave.vendormanagement.entity.Document;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface VendorRepository extends JpaRepository<Vendor, UUID> {
-}
+public interface DocumentRepository extends JpaRepository<Document, UUID> {}
