@@ -1,7 +1,9 @@
 package com.smartwave.vendormanagement.service;
 
 import com.smartwave.vendormanagement.entity.Vendor;
+import com.smartwave.vendormanagement.repository.VendorCategoryRepository;
 import com.smartwave.vendormanagement.repository.VendorRepository;
+import com.smartwave.vendormanagement.repository.VendorStatusRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class VendorService {
     private final VendorRepository vendorRepository;
+    private final VendorCategoryRepository categoryRepository;
+    private final VendorStatusRepository statusRepository;
 
     public Vendor createVendor(Vendor vendor) {
         return vendorRepository.save(vendor);
