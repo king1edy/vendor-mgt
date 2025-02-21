@@ -1,6 +1,8 @@
 package com.smartwave.vendormanagement.controller;
 
 
+import com.smartwave.vendormanagement.dto.VendorRequestDTO;
+import com.smartwave.vendormanagement.dto.VendorResponseDTO;
 import com.smartwave.vendormanagement.entity.Document;
 import com.smartwave.vendormanagement.entity.Vendor;
 import com.smartwave.vendormanagement.service.DocumentService;
@@ -24,16 +26,12 @@ public class VendorController {
     private final VendorService vendorService;
     private final DocumentService documentService;
 
-//    @Autowired
-//    public VendorController(VendorService vendorService, DocumentService documentService) {
-//        this.vendorService = vendorService;
-//        this.documentService = documentService;
-//    }
 
     @PostMapping
-    public ResponseEntity<Vendor> createVendor(@RequestBody @Valid Vendor vendor) {
-        Vendor savedVendor = vendorService.createVendor(vendor);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedVendor);
+    public ResponseEntity<VendorResponseDTO> createVendor(
+            @Valid @RequestBody VendorRequestDTO requestDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(vendorService.createVendor(requestDTO));
     }
 
     @PostMapping("upload-document")
@@ -43,15 +41,14 @@ public class VendorController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Vendor>> getAllVendors() {
+    public ResponseEntity<List<VendorResponseDTO>> getAllVendors() {
         return ResponseEntity.ok(vendorService.getAllVendors());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Vendor> getVendorById(@PathVariable UUID id) {
-        return vendorService.getVendorById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<VendorResponseDTO> getVendorById(@PathVariable UUID id) {
+        return ResponseEntity.ok(vendorService.getVendorById(id));
+
     }
 
     @GetMapping("/get-vendor-documents")
@@ -64,6 +61,13 @@ public class VendorController {
         return documentService.getDocumentById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<VendorResponseDTO> updateVendor(
+            @PathVariable UUID id,
+            @Valid @RequestBody VendorRequestDTO requestDTO) {
+        return ResponseEntity.ok(vendorService.updateVendor(id, requestDTO));
     }
 
     @DeleteMapping("/{id}")

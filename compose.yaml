@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:15
+    image: postgres:13
     container_name: vendor_postgres
     environment:
       POSTGRES_USER: vendor_user
