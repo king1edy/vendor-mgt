@@ -1,0 +1,1 @@
+ALTER TABLE vendors ADD COLUMN address VARCHAR(255);
